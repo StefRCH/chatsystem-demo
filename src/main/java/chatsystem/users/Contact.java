@@ -2,10 +2,12 @@ package chatsystem.users;
 
 import java.util.Objects;
 
-public class User {
+/** A remote user, currently only characterized by its name. */
+public class Contact {
 
     final String name;
-    public User(String name) {
+
+    public Contact(String name) {
         this.name = name;
     }
 
@@ -17,13 +19,13 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Contact user = (Contact) o;
         return Objects.equals(name, user.name);
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Contact{" +
                 "name='" + name + '\'' +
                 '}';
     }

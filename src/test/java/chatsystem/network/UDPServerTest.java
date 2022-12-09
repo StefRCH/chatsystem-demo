@@ -1,15 +1,11 @@
 package chatsystem.network;
 
-import chatsystem.network.Message;
-import chatsystem.network.UDPServer;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.net.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
 
 
 public class UDPServerTest {
@@ -18,29 +14,31 @@ public class UDPServerTest {
 
 
     @Test
-    public void mainTest() throws IOException, InterruptedException {
+    public void sendReceiveTest() throws IOException, InterruptedException {
         // message that we will send
         List<String> messages = Arrays.asList("foo", "bar");
 
         // list where received messages will be added
         List<String> received = new ArrayList<>();
 
-        Consumer<Message> subscriber = (msg) -> {
+        // create server and add a subscriber that will add each received message to our
+        // reception list
+        UDPServer server = new UDPServer(PORT);
+        server.addSubscriber((msg) -> {
             System.out.println("received: "+msg);
             received.add(msg.text);
-        };
-        UDPServer server = new UDPServer(PORT);
-        server.addSubscriber(subscriber);
+        });
 
         // launch server
         server.start();
+        Thread.sleep(100); // make sure the thread has time to start up
 
         // send all test messages
         for(String msg : messages) {
             UDPSender.sendLocalhost(PORT, msg);
         }
-        Thread.sleep(3000);
-        System.out.println(received);
+        Thread.sleep(100);
+        System.out.println("Received messages: " + received);
 
         // check that we have received all test messages
         assert received.size() == messages.size();
