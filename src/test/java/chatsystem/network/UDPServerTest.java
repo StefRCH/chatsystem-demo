@@ -16,7 +16,7 @@ public class UDPServerTest {
     @Test
     public void sendReceiveTest() throws IOException, InterruptedException {
         // message that we will send
-        List<String> messages = Arrays.asList("foo", "bar");
+        List<String> messages = Arrays.asList("foo", "bar", "tim", "tam", "toum", "multi\nline", "non-ASCII: éçàèê");
 
         // list where received messages will be added
         List<String> received = new ArrayList<>();

@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/** UDP server that (once started) will indefinetely listen to message on the given port.  */
+/** UDP server that (once started) will indefinitely listen to message on the given port.  */
 public class UDPServer extends Thread {
 
     private static final Logger LOGGER = LogManager.getLogger(UDPServer.class);
@@ -35,18 +35,18 @@ public class UDPServer extends Thread {
     @Override
     public void run() {
         byte[] buf = new byte[1024];
-        //noinspection InfiniteLoopStatement
         while (true) {
             try {
                 DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                // block until a message is available
                 socket.receive(packet);
                 String received = new String(packet.getData(), 0, packet.getLength());
                 LOGGER.trace("Received ({}): {}", socket.getLocalPort(), received);
                 Message msg = new Message(received);
+                // notify all subscribers by calling the function they provided
                 for (Consumer<Message> subscriber : subscribers) {
                     subscriber.accept(msg);
                 }
-
             } catch (Exception e) {
                 // non fatal error, log but continue processing
                 LOGGER.error(e.getMessage());
