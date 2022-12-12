@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Singleton class that provides access to the list of contacts.
  * The unique instance of this class will be accessed by several parts of the program, typically in different threads.
- * For this reason, we must ensure that these concurrent accesses to not lead to race conditions,
+ * For this reason, we must ensure that these concurrent accesses do not lead to race conditions,
  * which is why all methods are synchronized.
  */
 public class ContactList {

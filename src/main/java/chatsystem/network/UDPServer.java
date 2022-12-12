@@ -10,13 +10,13 @@ import java.util.function.Consumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/** UDP server that (once started) will indefinitely listen to message on the given port.  */
+/** UDP server that (once started) will indefinitely listen to messages on the given port.  */
 public class UDPServer extends Thread {
 
     private static final Logger LOGGER = LogManager.getLogger(UDPServer.class);
     private final DatagramSocket socket;
 
-    /** List of subscriber that should be notified of new messages.
+    /** List of subscribers that should be notified of new messages.
      * The list is synchronized to avoid race conditions when accessed from multiple threads.
      */
     List<Consumer<Message>> subscribers = Collections.synchronizedList(new ArrayList<>());
