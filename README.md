@@ -17,6 +17,7 @@ It mostly aims at demonstrating some of the things that one should find in a typ
 
 ## Usage
 
+Building the program from source requires `maven` to be installed.
 
 ```sh
 # compile 
